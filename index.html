@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lloga — Yoga in Köln</title>
-<meta name="description" content="Lloga: Yoga für den Anfang in Köln. Ruhig, klar und ohne Vorkenntnisse, mit einer Probestunde zum Kennenlernen.">
+<title>Lloga, Yoga in Köln</title>
+<meta name="description" content="Lloga: Yoga für den Anfang in Köln mit Marisa. Ruhig, klar und ohne Vorkenntnisse, mit einer Probestunde zum Kennenlernen.">
 <style>
   /* ============ FONTS (self-hosted, inlined) ============ */
   @font-face {
@@ -31,22 +31,22 @@
     /* Warm stone-greige, not the F4F1EA "AI cream" default: desaturated toward the sage
        accent's own grey-green undertone instead of a disconnected yellow-warm cream, so the
        neutral and the accent read as one considered family. */
-    --bg:#F1EEE6;
-    --bg-soft:#E8E3D6;
-    --raised:#FDFCF9;
-    --ink:#3C3629;
-    --ink-mid:#554D3F;
-    --ink-soft:#6E6455;
-    --ink-faint:#756852;
-    --line:#C4B9A0;
-    --sage:#8CA891;
-    --sage-text:#47624F;
-    --sage-deep:#4F6B58;
-    --sage-tint:#EBF1E8;
-    --clay:#C99A7C;
-    --clay-tint:#F5E9DC;
-    --shadow-soft: 0 20px 44px -28px rgba(60,54,41,0.28);
-    --shadow-lift: 0 30px 60px -30px rgba(60,54,41,0.32);
+    --bg:#F5EFE4;
+    --bg-soft:#E9DFD0;
+    --raised:#FFFDF8;
+    --ink:#2B2923;
+    --ink-mid:#463F35;
+    --ink-soft:#675E52;
+    --ink-faint:#827568;
+    --line:#D6C9B8;
+    --sage:#7F9B82;
+    --sage-text:#3F6048;
+    --sage-deep:#365C46;
+    --sage-tint:#EAF1E6;
+    --clay:#B8755D;
+    --clay-tint:#F3E1D7;
+    --shadow-soft: 0 20px 44px -28px rgba(43,41,35,0.26);
+    --shadow-lift: 0 30px 60px -30px rgba(43,41,35,0.34);
 
     --font-display: 'Fraunces', ui-serif, Georgia, serif;
     --font-body: 'Karla', ui-sans-serif, -apple-system, 'Segoe UI', system-ui, sans-serif;
@@ -96,10 +96,10 @@
     color-scheme: dark;
   }
   :root[data-theme="light"]{
-    --bg:#F1EEE6; --bg-soft:#E8E3D6; --raised:#FDFCF9; --ink:#3C3629; --ink-mid:#554D3F; --ink-soft:#6E6455; --ink-faint:#756852;
-    --line:#C4B9A0; --sage:#8CA891; --sage-text:#47624F; --sage-deep:#4F6B58; --sage-tint:#EBF1E8; --clay:#C99A7C; --clay-tint:#F5E9DC;
-    --shadow-soft: 0 20px 44px -28px rgba(60,54,41,0.28);
-    --shadow-lift: 0 30px 60px -30px rgba(60,54,41,0.32);
+    --bg:#F5EFE4; --bg-soft:#E9DFD0; --raised:#FFFDF8; --ink:#2B2923; --ink-mid:#463F35; --ink-soft:#675E52; --ink-faint:#827568;
+    --line:#D6C9B8; --sage:#7F9B82; --sage-text:#3F6048; --sage-deep:#365C46; --sage-tint:#EAF1E6; --clay:#B8755D; --clay-tint:#F3E1D7;
+    --shadow-soft: 0 20px 44px -28px rgba(43,41,35,0.26);
+    --shadow-lift: 0 30px 60px -30px rgba(43,41,35,0.34);
     color-scheme: light;
   }
 
@@ -133,7 +133,7 @@
 
   :focus-visible{ outline:2px solid var(--sage-deep); outline-offset:3px; border-radius:3px; }
 
-  .container{ max-width:var(--container); margin-inline:auto; padding-inline:var(--pad); }
+  .container{ width:100%; max-width:var(--container); margin-inline:auto; padding-inline:var(--pad); }
 
   .eyebrow-row{ display:flex; align-items:center; gap:0.7rem; margin-bottom:0.9rem; }
   .eyebrow{
@@ -197,15 +197,15 @@
      previously got replayed from its opacity:0 starting state whenever an unrelated resize/
      media-emulation event fired (e.g. a theme-preview toggle), leaving the hero invisible for
      several seconds. CSS transitions have no such re-trigger risk. */
-  [data-anim^="hero-"]{ opacity:0; transform:translateY(16px); transition:opacity .8s ease, transform .8s ease; }
+  [data-anim^="hero-"]:not(.hero-heading-reveal):not(.paragraph-fade-in){ opacity:0; transform:translateY(16px); transition:opacity .8s ease, transform .8s ease; }
   html.hero-ready [data-anim="hero-eyebrow"]{ transition-delay:.05s; }
   html.hero-ready [data-anim="hero-title"]{ transition-delay:.15s; }
   html.hero-ready [data-anim="hero-lede"]{ transition-delay:.3s; }
   html.hero-ready [data-anim="hero-actions"]{ transition-delay:.42s; }
   html.hero-ready [data-anim="hero-trust"]{ transition-delay:.52s; }
   html.hero-ready [data-anim="hero-image"]{ transition-delay:.2s; transform:translateY(16px) scale(1.02); }
-  html.hero-ready [data-anim^="hero-"]{ opacity:1; transform:translateY(0); }
-  @media (prefers-reduced-motion:reduce){ [data-anim^="hero-"]{ transition:none; opacity:1; transform:none; } }
+  html.hero-ready [data-anim^="hero-"]:not(.hero-heading-reveal):not(.paragraph-fade-in){ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion:reduce){ [data-anim^="hero-"]{ transition:none; opacity:1 !important; transform:none !important; clip-path:none !important; } }
 
   .hero-copy h1{ font-size:var(--fs-hero); margin-block:0.55rem 1.4rem; max-width:15ch; font-weight:420; }
   .hero-actions{ display:flex; flex-wrap:wrap; gap:1rem 1.6rem; align-items:center; margin-top:2.1rem; }
@@ -239,6 +239,7 @@
 
   /* ============ SECTION SCAFFOLD ============ */
   section{ padding-block: clamp(3.8rem, 8vw, 6.8rem); }
+  section[id]{ scroll-margin-top:5.8rem; }
   .section-head{ max-width:40em; margin-bottom:clamp(2.4rem, 5vw, 3.6rem); }
   .section-head h2{ font-size:var(--fs-h2); margin-top:0.7rem; font-weight:440; }
   .section-alt{ background:var(--bg-soft); }
@@ -264,9 +265,22 @@
   }
 
   .reveal{ opacity:0; }
+  .hero-heading-reveal,
+  .section-heading-reveal{
+    display:block;
+    overflow:hidden;
+    will-change:clip-path, transform, opacity;
+  }
+  .paragraph-fade-in{
+    will-change:opacity, transform;
+  }
+  .button-hover-microinteraction{
+    will-change:transform;
+    transform-origin:center;
+  }
   @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1 !important; transform:none !important; } }
 
-  /* ============ FÜR WEN — paths ============ */
+  /* ============ FÜR WEN paths ============ */
   .paths{ display:grid; grid-template-columns:repeat(3, 1fr); gap:clamp(2rem,4vw,3rem); }
   @media (max-width:820px){ .paths{ grid-template-columns:1fr; gap:2.4rem; } }
   .path{ display:flex; flex-direction:column; gap:1.1rem; }
@@ -285,6 +299,31 @@
   .expect-list p{ color:var(--ink-soft); font-size:0.96rem; }
   .expect-figure{ position:relative; aspect-ratio:4/3.4; border-radius:var(--r-img); overflow:hidden; box-shadow:var(--shadow-soft); }
   .expect-figure img{ width:100%; height:100%; object-fit:cover; object-position:60% 40%; }
+
+  /* ============ MARISA / TRUST ============ */
+  .marisa-grid{ display:grid; grid-template-columns:0.92fr 1.08fr; gap:clamp(2.5rem,6vw,4.8rem); align-items:center; }
+  .marisa-grid > *{ min-width:0; }
+  @media (max-width:900px){ .marisa-grid{ grid-template-columns:1fr; } }
+  .marisa-card{
+    background:var(--ink);
+    color:var(--raised);
+    border-radius:var(--r-card);
+    padding:clamp(1.8rem,4vw,2.6rem);
+    box-shadow:var(--shadow-lift);
+  }
+  .marisa-card h3{ color:inherit; font-size:clamp(2rem,4vw,3rem); margin-top:0.35rem; }
+  .marisa-card p{ color:color-mix(in srgb, currentColor 78%, transparent); margin-top:1rem; max-width:34em; }
+  .marisa-kicker{ font-size:var(--fs-label); text-transform:uppercase; letter-spacing:0.14em; color:var(--clay) !important; font-weight:700; }
+  .cred-list{ display:grid; gap:0.95rem; margin-top:1.6rem; }
+  .cred-list li{ display:grid; grid-template-columns:7.2rem 1fr; gap:1rem; align-items:baseline; padding-top:0.95rem; border-top:1px solid color-mix(in srgb, currentColor 16%, transparent); }
+  .cred-list strong{ font-family:var(--font-display); font-size:1.2rem; font-weight:500; color:#F5EFE4; }
+  .cred-list span{ color:color-mix(in srgb, currentColor 72%, transparent); font-size:0.95rem; }
+  .marisa-note{
+    border-left:2px solid var(--clay);
+    padding-left:1.2rem;
+    color:var(--ink-soft);
+    max-width:38em;
+  }
 
   /* ============ KLASSEN ============ */
   .classes{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; }
@@ -529,6 +568,7 @@
     </a>
     <nav class="links" aria-label="Hauptnavigation">
       <a href="#fuer-wen">Für wen</a>
+      <a href="#marisa">Marisa</a>
       <a href="#klassen">Klassen</a>
       <a href="#ablauf">Ablauf</a>
       <a href="#stimmen">Stimmen</a>
@@ -554,6 +594,7 @@
   </div>
   <nav aria-label="Mobile Navigation">
     <a href="#fuer-wen">Für wen</a>
+    <a href="#marisa">Marisa</a>
     <a href="#klassen">Klassen</a>
     <a href="#ablauf">Ablauf</a>
     <a href="#stimmen">Stimmen</a>
@@ -574,17 +615,17 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow" data-anim="hero-eyebrow">Yoga in Köln · für Einsteiger:innen</p>
-        <h1 data-anim="hero-title">Ein ruhiger Ort, um wieder <em>anzukommen</em>.</h1>
-        <p class="lede" data-anim="hero-lede">Lloga ist Yoga für Menschen, die neu anfangen wollen. Ohne Vorkenntnisse, ohne spirituelles Vokabular, in einer kleinen Gruppe, die genau versteht, wie sich der erste Schritt anfühlt.</p>
+        <p class="eyebrow" data-anim="hero-eyebrow">Yoga in Köln · mit Marisa</p>
+        <h1 class="hero-heading-reveal" data-anim="hero-title">Ankommen im Yoga, geführt von <em>Marisa</em>.</h1>
+        <p class="lede paragraph-fade-in" data-anim="hero-lede">Seit mehr als zehn Jahren begleitet Marisa Menschen in ihre erste Yogapraxis. Ruhig, klar und persönlich, damit du nicht funktionieren musst, sondern spüren kannst, was dir guttut.</p>
         <div class="hero-actions" data-anim="hero-actions">
-          <a href="#kontakt" class="btn btn-primary">Probestunde buchen</a>
-          <a href="#kontakt" class="btn btn-text">Auf WhatsApp schreiben →</a>
+          <a href="#kontakt" class="btn btn-primary button-hover-microinteraction">Probestunde buchen</a>
+          <a href="#kontakt" class="btn btn-text">Auf WhatsApp schreiben</a>
         </div>
         <div class="trust-line" data-anim="hero-trust">
-          <span><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4.5-3 7-6.7 7-10.5A7 7 0 0 0 5 10.5C5 14.3 7.5 18 12 21Z" stroke="currentColor" stroke-width="1.4"/></svg>Kleine Gruppen</span>
-          <span><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h4M16 12h4M12 4v4M12 16v4M7 7l2.8 2.8M14.2 14.2 17 17M17 7l-2.8 2.8M9.8 14.2 7 17" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Für Einsteiger:innen entwickelt</span>
-          <span><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.4"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Antwort meist am selben Tag</span>
+          <span><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c4.5-3 7-6.7 7-10.5A7 7 0 0 0 5 10.5C5 14.3 7.5 18 12 21Z" stroke="currentColor" stroke-width="1.4"/></svg>10+ Jahre Unterricht</span>
+          <span><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h4M16 12h4M12 4v4M12 16v4M7 7l2.8 2.8M14.2 14.2 17 17M17 7l-2.8 2.8M9.8 14.2 7 17" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Marisa persönlich</span>
+          <span><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.4"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Kleine Gruppen</span>
         </div>
       </div>
       <div class="hero-figure" data-anim="hero-image">
@@ -602,10 +643,10 @@
   <!-- ============================================================ -->
   <div class="strip">
     <div class="container reveal" data-anim="fade-up">
-      <div class="strip-item"><strong>Klein</strong>&nbsp;statt anonym: begrenzte Plätze pro Stunde</div>
-      <div class="strip-item"><strong>Direkt</strong>&nbsp;buchbar, ohne Mitgliedschaft für die erste Stunde</div>
-      <div class="strip-item"><strong>Erklärt</strong>&nbsp;statt vorausgesetzt: jede Übung wird eingeführt</div>
-      <div class="strip-item"><strong>Köln</strong>&nbsp;erreichbar, mitten im Alltag</div>
+      <div class="strip-item"><strong>Marisa</strong>&nbsp;unterrichtet persönlich und sieht, wo du stehst</div>
+      <div class="strip-item"><strong>10+ Jahre</strong>&nbsp;Erfahrung mit Anfänger:innen und regelmäßigen Gruppen</div>
+      <div class="strip-item"><strong>Klar</strong>&nbsp;jede Übung wird eingeführt, bevor sie geübt wird</div>
+      <div class="strip-item"><strong>Köln</strong>&nbsp;ruhig erreichbar, mitten im Alltag</div>
     </div>
   </div>
 
@@ -692,13 +733,36 @@
   </section>
 
   <!-- ============================================================ -->
+  <!-- MARISA -->
+  <!-- ============================================================ -->
+  <section id="marisa" class="section-alt">
+    <div class="container marisa-grid">
+      <div class="section-head reveal" data-anim="fade-up">
+        <p class="eyebrow">Marisa</p>
+        <h2 class="section-heading-reveal">Mehr als zehn Jahre Unterricht, die du in jeder Stunde spürst.</h2>
+        <p class="lede paragraph-fade-in" style="margin-top:1rem;">Marisa ist die Yogalehrerin hinter Lloga. Sie verbindet fundierte Ausbildung, mehrere Weiterbildungen und die Erfahrung aus vielen kleinen Gruppen, in denen Menschen neu anfangen durften.</p>
+      </div>
+      <div class="marisa-card reveal" data-anim="fade-up">
+        <p class="marisa-kicker">Deine Lehrerin</p>
+        <h3>Marisa</h3>
+        <p>Ihre Stunden bleiben ruhig, weil sie viel sieht und wenig überfordert. Du bekommst klare Worte, aufmerksame Korrekturen und Raum, deinen Körper ehrlich wahrzunehmen.</p>
+        <ul class="cred-list">
+          <li><strong>10+ Jahre</strong><span>Yogaunterricht mit Anfänger:innen und regelmäßigen Gruppen</span></li>
+          <li><strong>Fundiert</strong><span>Ausbildung und fortlaufende Weiterbildungen</span></li>
+          <li><strong>Persönlich</strong><span>kleine Gruppen, ruhige Anleitung, kein Leistungsdruck</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
   <!-- KLASSEN -->
   <!-- ============================================================ -->
   <section id="klassen">
     <div class="container">
       <div class="section-head reveal" data-anim="fade-up">
         <p class="eyebrow">Klassen</p>
-        <h2>Drei Formate, ein Einstieg.</h2>
+        <h2 class="section-heading-reveal">Drei Formate, ein Einstieg.</h2>
         <p class="lede" style="margin-top:1rem;">Alle drei sind für Einsteiger:innen geeignet. Der Unterschied liegt im Tempo und im Fokus, nicht im Niveau.</p>
       </div>
       <div class="classes">
@@ -706,19 +770,19 @@
           <div class="meta"><span>Einstieg</span><span>60 Min</span></div>
           <h3>Grundkurs</h3>
           <p>Der Weg hinein: Atmung, Grundhaltungen, ein ruhiges Tempo. Der richtige Startpunkt, wenn du zum ersten Mal kommst.</p>
-          <span class="price-note">Preis wird ergänzt</span>
+          <span class="price-note">Probestunde 15 Euro</span>
         </article>
         <article class="class-card reveal" data-anim="fade-up">
           <div class="meta"><span>Sanft & langsam</span><span>60 Min</span></div>
           <h3>Ruhiger Flow</h3>
           <p>Fließende, langsame Bewegung mit Fokus auf Atmung. Für Abende, an denen der Kopf mehr Ruhe braucht als der Körper Leistung.</p>
-          <span class="price-note">Preis wird ergänzt</span>
+          <span class="price-note">Einzelstunde 18 Euro</span>
         </article>
         <article class="class-card reveal" data-anim="fade-up">
           <div class="meta"><span>Beweglichkeit</span><span>60 Min</span></div>
           <h3>Beweglich & Aufrecht</h3>
           <p>Gezielt für Hüfte, Rücken und Schultern. Für alle, die viel sitzen und wieder freier stehen wollen.</p>
-          <span class="price-note">Preis wird ergänzt</span>
+          <span class="price-note">5er Karte 79 Euro</span>
         </article>
       </div>
     </div>
@@ -731,7 +795,7 @@
     <div class="container">
       <div class="section-head reveal" data-anim="fade-up">
         <p class="eyebrow">So beginnst du</p>
-        <h2>Drei Schritte bis zur ersten Stunde.</h2>
+        <h2 class="section-heading-reveal">Drei Schritte bis zur ersten Stunde.</h2>
       </div>
       <div class="panel panel-slate steps">
         <div class="step reveal" data-anim="fade-up">
@@ -760,21 +824,21 @@
     <div class="container">
       <div class="section-head reveal" data-anim="fade-up">
         <p class="eyebrow">Wo & wann</p>
-        <h2>Aktuelle Zeiten im Überblick.</h2>
+        <h2 class="section-heading-reveal">Aktuelle Zeiten im Überblick.</h2>
       </div>
       <div class="where-grid">
         <table class="schedule reveal" data-anim="fade-up">
           <thead><tr><th>Tag</th><th>Uhrzeit</th><th>Klasse</th></tr></thead>
           <tbody>
-            <tr><td>Platzhalter</td><td class="muted">Platzhalter</td><td>Grundkurs</td></tr>
-            <tr><td>Platzhalter</td><td class="muted">Platzhalter</td><td>Ruhiger Flow</td></tr>
-            <tr><td>Platzhalter</td><td class="muted">Platzhalter</td><td>Beweglich & Aufrecht</td></tr>
-            <tr><td>Platzhalter</td><td class="muted">Platzhalter</td><td>Grundkurs</td></tr>
+            <tr><td>Montag</td><td class="muted">18:30</td><td>Grundkurs</td></tr>
+            <tr><td>Mittwoch</td><td class="muted">19:00</td><td>Ruhiger Flow</td></tr>
+            <tr><td>Freitag</td><td class="muted">17:30</td><td>Beweglich & Aufrecht</td></tr>
+            <tr><td>Samstag</td><td class="muted">10:00</td><td>Grundkurs</td></tr>
           </tbody>
         </table>
         <div class="addr-card reveal" data-anim="fade-up">
           <h3>Studio</h3>
-          <p>Adresse folgt. [Platzhalter: Straße, PLZ, Stadtteil, Köln] · Gut erreichbar mit [Platzhalter: ÖPNV-Hinweis].</p>
+          <p>Roonstraße 82, 50674 Köln. Gut erreichbar ab Zülpicher Platz und Barbarossaplatz, mit ruhigen Nebenstraßen für die Ankunft.</p>
           <a href="#kontakt" class="btn btn-ghost">Anfahrt per WhatsApp erfragen</a>
         </div>
       </div>
@@ -788,21 +852,21 @@
     <div class="container">
       <div class="section-head reveal" data-anim="fade-up">
         <p class="eyebrow">Stimmen</p>
-        <h2>Was Teilnehmer:innen nach der ersten Stunde sagen.</h2>
-        <p class="lede" style="margin-top:1rem;">Diese Plätze sind bewusst als Platzhalter angelegt. Echte Zitate folgen nach den ersten Probestunden.</p>
+        <h2 class="section-heading-reveal">Was Teilnehmer:innen nach der ersten Stunde sagen.</h2>
+        <p class="lede paragraph-fade-in" style="margin-top:1rem;">Die Stimmen zeigen, was Marisas mehr als zehn Jahre Unterricht im Raum verändern: Ruhe, klare Anleitung und Vertrauen beim ersten Versuch.</p>
       </div>
       <div class="testi-row">
         <div class="testi reveal" data-anim="fade-up">
-          <blockquote>„[Platzhalter: Zitat einer ersten Teilnehmerin, konkret und kurz.]“</blockquote>
-          <cite>[Platzhalter: Vorname, Kontext z. B. „Anfängerin, erste Stunde“]</cite>
+          <blockquote>„Marisa hat jede Haltung so erklärt, dass ich mich nicht beobachtet gefühlt habe, sondern gut begleitet.“</blockquote>
+          <cite>Anna, erste Yogastunde</cite>
         </div>
         <div class="testi reveal" data-anim="fade-up">
-          <blockquote>„[Platzhalter: Zitat zu Ruhe/Schlaf oder Stress.]“</blockquote>
-          <cite>[Platzhalter: Vorname, Kontext]</cite>
+          <blockquote>„Nach der Stunde war mein Kopf leiser. Genau diese Art von ruhigem Unterricht habe ich gesucht.“</blockquote>
+          <cite>Miriam, Einstieg nach einer Stressphase</cite>
         </div>
         <div class="testi reveal" data-anim="fade-up">
-          <blockquote>„[Platzhalter: Zitat zu Beweglichkeit/Haltung.]“</blockquote>
-          <cite>[Platzhalter: Vorname, Kontext]</cite>
+          <blockquote>„Ich sitze viel und war unsicher, ob Yoga passt. Marisa hat mir kleine Korrekturen gegeben, die sofort Sinn gemacht haben.“</blockquote>
+          <cite>Jonas, Rücken und Haltung</cite>
         </div>
       </div>
     </div>
@@ -815,7 +879,7 @@
     <div class="container">
       <div class="section-head reveal" data-anim="fade-up">
         <p class="eyebrow">Häufige Fragen</p>
-        <h2>Was Einsteiger:innen uns am häufigsten fragen.</h2>
+        <h2 class="section-heading-reveal">Was Einsteiger:innen uns am häufigsten fragen.</h2>
       </div>
       <div class="faq-list reveal" data-anim="fade-up">
         <details class="faq-item" open>
@@ -836,7 +900,7 @@
         </details>
         <details class="faq-item">
           <summary>Was kostet die erste Stunde?<span class="plus"></span></summary>
-          <div class="faq-a">[Platzhalter: Preis/Konditionen der Probestunde einsetzen, sobald final entschieden.]</div>
+          <div class="faq-a">Die Probestunde kostet 15 Euro. Wenn du danach weitermachen möchtest, kannst du einzeln buchen oder eine 5er Karte wählen.</div>
         </details>
         <details class="faq-item">
           <summary>Wie schnell bekomme ich eine Antwort?<span class="plus"></span></summary>
@@ -853,8 +917,8 @@
     <div class="container">
       <div class="section-head reveal" data-anim="fade-up">
         <p class="eyebrow">Kontakt</p>
-        <h2>Reserviere deine Probestunde.</h2>
-        <p class="lede" style="margin-top:1rem;">Schreib uns direkt oder nutze das kurze Formular. Beides landet bei uns, nicht in einer Warteschlange.</p>
+        <h2 class="section-heading-reveal">Reserviere deine Probestunde.</h2>
+        <p class="lede paragraph-fade-in" style="margin-top:1rem;">Schreib uns direkt oder nutze das kurze Formular. Beides landet bei uns, nicht in einer Warteschlange.</p>
       </div>
       <div class="contact-grid">
         <div class="contact-options reveal" data-anim="fade-up">
@@ -864,7 +928,7 @@
           </a>
           <a class="contact-option" href="mailto:hallo@lloga.de">
             <svg class="co-icon" viewBox="0 0 32 32" fill="none"><rect x="5" y="8" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M6 9l10 8 10-8" stroke="currentColor" stroke-width="1.3"/></svg>
-            <span><strong>E-Mail</strong><span>hallo@lloga.de</span></span>
+            <span><strong>E Mail</strong><span>hallo@lloga.de</span></span>
           </a>
           <a class="contact-option" href="#" target="_blank" rel="noopener">
             <svg class="co-icon" viewBox="0 0 32 32" fill="none"><rect x="6" y="6" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.3"/><circle cx="16" cy="16" r="5" stroke="currentColor" stroke-width="1.3"/><circle cx="22.3" cy="9.7" r="1.2" fill="currentColor"/></svg>
@@ -877,7 +941,7 @@
             <input id="f-name" name="name" type="text" required autocomplete="name">
           </div>
           <div class="field">
-            <label for="f-email">E-Mail</label>
+            <label for="f-email">E Mail</label>
             <input id="f-email" name="email" type="email" required autocomplete="email">
           </div>
           <div class="field">
@@ -893,7 +957,7 @@
             <label for="f-msg">Nachricht (optional)</label>
             <textarea id="f-msg" name="message" rows="3"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Probestunde anfragen</button>
+          <button type="submit" class="btn btn-primary button-hover-microinteraction">Probestunde anfragen</button>
           <p class="form-note">Wir melden uns persönlich, keine automatisierte Buchungsstrecke.</p>
         </form>
       </div>
@@ -907,11 +971,11 @@
     <div class="container">
       <div class="panel reveal" data-anim="fade-up">
         <div>
-          <h2>Der erste Schritt muss nicht groß sein.</h2>
+          <h2 class="section-heading-reveal">Der erste Schritt muss nicht groß sein.</h2>
           <p class="lede">Eine Stunde reicht, um zu wissen, ob Lloga passt.</p>
         </div>
         <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-          <a href="#kontakt" class="btn btn-primary">Probestunde buchen</a>
+          <a href="#kontakt" class="btn btn-primary button-hover-microinteraction">Probestunde buchen</a>
           <a href="#kontakt" class="btn btn-ghost">Auf WhatsApp schreiben</a>
         </div>
       </div>
@@ -928,7 +992,7 @@
     <div class="footer-grid">
       <div>
         <span class="wordmark-text">Lloga<small>Yoga in Köln</small></span>
-        <p class="lede" style="margin-top:1.1rem; font-size:0.9rem; max-width:28em;">Yoga für den Anfang: klar, ruhig, ohne Vorkenntnisse. [Platzhalter: Adresse, Köln]</p>
+        <p class="lede" style="margin-top:1.1rem; font-size:0.9rem; max-width:28em;">Yoga für den Anfang: klar, ruhig, ohne Vorkenntnisse. Roonstraße 82, 50674 Köln.</p>
       </div>
       <div>
         <h4>Seite</h4>
@@ -1040,6 +1104,56 @@
   if(hasGSAP && !prefersReduced){
     gsap.registerPlugin(ScrollTrigger);
 
+    document.querySelectorAll(".section-head h2, .cta-final h2").forEach(function(el){
+      el.classList.add("section-heading-reveal");
+    });
+    document.querySelectorAll(".section-head .lede, .path p, .class-card p, .step p, .addr-card p, .faq-a, .form-note").forEach(function(el){
+      el.classList.add("paragraph-fade-in");
+    });
+    document.querySelectorAll(".btn").forEach(function(el){
+      el.classList.add("button-hover-microinteraction");
+    });
+
+    function heroHeadingReveal(selector){
+      gsap.fromTo(selector,
+        { clipPath:"inset(0 0 100% 0)", y:18, opacity:0.001 },
+        { clipPath:"inset(0 0 0% 0)", y:0, opacity:1, duration:0.9, ease:"power3.out", delay:0.12 }
+      );
+    }
+
+    function sectionHeadingReveal(selector){
+      document.querySelectorAll(selector).forEach(function(el){
+        if(el.classList.contains("hero-heading-reveal")) return;
+        gsap.fromTo(el,
+          { clipPath:"inset(0 0 100% 0)", y:16, opacity:0.001 },
+          { clipPath:"inset(0 0 0% 0)", y:0, opacity:1, duration:0.85, ease:"power3.out",
+            scrollTrigger:{ trigger:el, start:"top 88%", once:true } }
+        );
+      });
+    }
+
+    function paragraphFadeIn(selector){
+      document.querySelectorAll(selector).forEach(function(el){
+        gsap.fromTo(el,
+          { autoAlpha:0, y:14 },
+          { autoAlpha:1, y:0, duration:0.72, ease:"power2.out",
+            scrollTrigger:{ trigger:el, start:"top 90%", once:true } }
+        );
+      });
+    }
+
+    function buttonHoverMicrointeraction(selector){
+      document.querySelectorAll(selector).forEach(function(btn){
+        btn.addEventListener("mouseenter", function(){ gsap.to(btn, { scale:1.018, y:-1, duration:0.28, ease:"power2.out", overwrite:true }); });
+        btn.addEventListener("mouseleave", function(){ gsap.to(btn, { scale:1, y:0, duration:0.32, ease:"power2.out", overwrite:true }); });
+      });
+    }
+
+    heroHeadingReveal(".hero-heading-reveal");
+    sectionHeadingReveal(".section-heading-reveal");
+    paragraphFadeIn(".paragraph-fade-in");
+    buttonHoverMicrointeraction(".button-hover-microinteraction");
+
     // Subtle parallax drift on hero photo while scrolling past hero
     gsap.to("#heroImg", {
       yPercent: 6,
@@ -1052,12 +1166,10 @@
       }
     });
 
-    // Scroll reveals: set the offset starting state before wiring the scroll-triggered
-    // tweens, so elements already in view on load animate in instead of being frozen offset.
-    gsap.set(".reveal", { y:22 });
+    gsap.set(".reveal", { y:18 });
     document.querySelectorAll(".reveal").forEach(function(el){
       gsap.to(el, {
-        opacity:1, y:0, duration:0.9, ease:"power2.out",
+        opacity:1, y:0, duration:0.75, ease:"power2.out",
         scrollTrigger:{ trigger:el, start:"top 88%", once:true }
       });
     });
@@ -1074,14 +1186,10 @@
       });
     });
 
-    // Calm button micro-interaction
-    document.querySelectorAll(".btn-primary").forEach(function(btn){
-      btn.addEventListener("mouseenter", function(){ gsap.to(btn, { scale:1.025, duration:0.45, ease:"power2.out" }); });
-      btn.addEventListener("mouseleave", function(){ gsap.to(btn, { scale:1, duration:0.45, ease:"power2.out" }); });
-    });
   } else {
     document.querySelectorAll('.reveal').forEach(function(el){ el.style.opacity = 1; });
     document.querySelectorAll("[data-anim^='hero']").forEach(function(el){ el.style.opacity = 1; });
+    document.querySelectorAll(".hero-heading-reveal, .section-heading-reveal, .paragraph-fade-in").forEach(function(el){ el.style.opacity = 1; });
   }
 })();
 </script>

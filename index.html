@@ -57,7 +57,7 @@ h1,h2,h3{margin:0;font-family:var(--disp);font-weight:500;line-height:1;letter-s
 @media (max-width:720px){ .nav-link{display:none;} }
 
 /* ---- hero ---- */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:var(--cocoon);}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:var(--cocoon);}
 .hero-bg{position:absolute;inset:-8% 0;z-index:0;will-change:transform;}
 .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:60% 50%;}
 /* mobile-first: text sits at the bottom, so scrim is bottom-heavy and rises to ~62% */
@@ -70,26 +70,25 @@ h1,h2,h3{margin:0;font-family:var(--disp);font-weight:500;line-height:1;letter-s
 }
 .breath{position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none;overflow:visible;}
 .breath path{fill:none;stroke:var(--honey);stroke-width:2;opacity:.85;stroke-linecap:round;}
-.hero-inner{position:relative;z-index:3;width:100%;padding:0 var(--pad) clamp(2.4rem,6vw,4.5rem);}
-.eyebrow{font-family:var(--disp);font-weight:600;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:#E9B75A;display:flex;align-items:center;gap:.7em;text-shadow:0 1px 18px rgba(20,14,8,.7);}
-.eyebrow::before{content:"";width:2rem;height:1px;background:var(--honey);opacity:.8;}
-.hero h1{color:#F7EEDE;font-size:clamp(3.1rem,10vw,7.4rem);font-weight:500;letter-spacing:-.035em;margin:.7rem 0 0;max-width:15ch;text-shadow:0 2px 30px rgba(20,14,8,.5);}
+.hero-inner{position:relative;z-index:3;width:100%;text-align:center;padding:clamp(4.8rem,11vh,6.5rem) var(--pad) clamp(2.4rem,6vw,4.5rem);}
+.eyebrow{font-family:var(--disp);font-weight:600;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:#E9B75A;display:flex;justify-content:center;align-items:center;gap:.7em;text-shadow:0 1px 18px rgba(20,14,8,.7);}
+.eyebrow::before,.eyebrow::after{content:"";width:2rem;height:1px;background:var(--honey);opacity:.8;}
+.hero h1{color:#F7EEDE;font-size:clamp(3.1rem,10vw,7.4rem);font-weight:500;letter-spacing:-.035em;margin:.9rem auto 0;max-width:15ch;text-shadow:0 2px 30px rgba(20,14,8,.5);}
 .hero h1 .soft{color:var(--honey);font-family:var(--body);font-style:italic;font-weight:400;letter-spacing:-.01em;}
-.hero-sub{color:#EDE1CE;font-size:clamp(1.18rem,1.6vw,1.44rem);max-width:34ch;margin:1.5rem 0 0;line-height:1.5;text-shadow:0 1px 16px rgba(20,14,8,.55);}
-.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 1.1rem;margin-top:2rem;}
+.hero-sub{color:#EDE1CE;font-size:clamp(1.18rem,1.6vw,1.44rem);max-width:38ch;margin:1.5rem auto 0;line-height:1.5;text-shadow:0 1px 16px rgba(20,14,8,.55);}
+.hero-actions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.8rem 1.1rem;margin-top:2rem;}
 .btn{font-family:var(--disp);font-weight:600;font-size:1.02rem;border:none;cursor:pointer;border-radius:100px;padding:.95em 1.7em;display:inline-flex;align-items:center;gap:.5em;transition:transform .35s cubic-bezier(.22,1,.36,1),background .3s,color .3s,border-color .3s,box-shadow .3s;}
 .btn-fill{background:linear-gradient(177deg,#D6A03E 0%,var(--honey) 55%,#B98325 100%);color:var(--cocoon);box-shadow:0 14px 26px -14px rgba(150,102,20,.85),0 1px 0 rgba(255,242,216,.55) inset;}
 .btn-fill:hover{transform:translateY(-2px);box-shadow:0 20px 34px -16px rgba(150,102,20,.9),0 1px 0 rgba(255,244,220,.7) inset;filter:brightness(1.04);}
 .btn-ghost{color:#F5ECDB;border:1px solid rgba(245,236,219,.45);}
 .btn-ghost:hover{border-color:#F5ECDB;transform:translateY(-2px);}
 .btn-ghost svg{width:1.05em;height:1.05em;}
-.hero-meta{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;color:#D8C9B3;font-family:var(--disp);font-weight:500;font-size:.92rem;letter-spacing:.01em;}
+.hero-meta{margin-top:1.6rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.4rem;color:#D8C9B3;font-family:var(--disp);font-weight:500;font-size:.92rem;letter-spacing:.01em;}
 .hero-meta span{display:inline-flex;align-items:center;gap:.5em;}
 .hero-meta span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--honey);}
 
 @media (min-width:820px){
-  .hero{align-items:center;}
-  .hero-inner{padding-bottom:0;max-width:70%;}
+  .hero-inner{max-width:66%;margin:0 auto;}
 }
 @media (prefers-reduced-motion:reduce){ .hero-bg{inset:0;} }
 
@@ -580,6 +579,7 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ignoreMobileResize:true});
 
   // hero entrance
   gsap.set('[data-r]',{opacity:0,y:26});

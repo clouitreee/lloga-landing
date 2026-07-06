@@ -251,6 +251,9 @@ h1,h2,h3{margin:0;font-family:var(--disp);font-weight:500;line-height:1;letter-s
 .foot-links{display:flex;flex-wrap:wrap;gap:.9rem 1.6rem;font-size:1rem;color:var(--ink-soft);}
 .foot-links a:hover{color:#9A6B1C;}
 .foot-legal{max-width:1180px;margin:1.6rem auto 0;display:flex;flex-wrap:wrap;gap:.4rem 1.3rem;font-size:.85rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:1.3rem;}
+.foot-made{margin-left:auto;}
+.foot-made span{filter:saturate(.9);}
+@media (max-width:560px){ .foot-made{margin-left:0;flex-basis:100%;} }
 @media (min-width:760px){ .foot-top{flex-direction:row;justify-content:space-between;align-items:flex-end;} }
 
 
@@ -515,6 +518,7 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
     <span>© 2026 Lloga, Köln</span>
     <a href="mailto:hallo@lloga.de?subject=Impressum%20Lloga">Impressum</a>
     <a href="mailto:hallo@lloga.de?subject=Datenschutz%20Lloga">Datenschutz</a>
+    <span class="foot-made">Hecho con <span aria-hidden="true">❤️</span> en Colonia</span>
   </div>
 </footer>
 

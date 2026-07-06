@@ -38,7 +38,8 @@ a{color:inherit;text-decoration:none;}
 h1,h2,h3{margin:0;font-family:var(--disp);font-weight:500;line-height:1;letter-spacing:-.02em;}
 
 /* ---- header (sticky, scroll-aware) ---- */
-.top{position:fixed;top:0;left:0;right:0;z-index:20;transition:background .45s ease,box-shadow .45s ease,backdrop-filter .45s ease;}
+.top{position:fixed;top:0;left:0;right:0;z-index:20;transition:transform .45s cubic-bezier(.4,0,.2,1),background .45s ease,box-shadow .45s ease,backdrop-filter .45s ease;}
+.top.is-hidden{transform:translateY(-102%);}
 .top .row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:clamp(.85rem,2.2vw,1.35rem) var(--pad);transition:padding .4s ease;}
 .mark{display:inline-flex;align-items:center;gap:.5em;font-family:var(--disp);font-weight:600;font-size:clamp(1.35rem,3vw,1.6rem);letter-spacing:-.03em;color:#F3EAD9;transition:color .4s ease;}
 .mark-dot{width:1.12em;height:1.12em;color:var(--honey);display:inline-grid;place-items:center;flex:none;}
@@ -561,13 +562,24 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
     form.querySelectorAll('input,select,textarea').forEach(function(x){x.addEventListener('input',function(){if(!st.hidden&&form.checkValidity())st.hidden=true;});});
   }
 
-  // sticky header: turns solid once past the hero
+  // header: solid past the hero, and dynamic hide on scroll-down / show on scroll-up
   (function(){
     var top=document.querySelector('.top'), hero=document.querySelector('.hero');
     if(!top||!hero) return;
     var sc=document.scrollingElement||document.documentElement;
-    function upd(){ var th=(hero.offsetHeight||innerHeight)-90; if((sc.scrollTop||window.scrollY)>th){top.classList.add('is-solid');}else{top.classList.remove('is-solid');} }
-    upd(); addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd);
+    var lastY=0, ticking=false;
+    function apply(){
+      ticking=false;
+      var y=Math.max(0, sc.scrollTop||window.scrollY||0);
+      var th=(hero.offsetHeight||innerHeight)-90;
+      if(y>th){top.classList.add('is-solid');}else{top.classList.remove('is-solid');}
+      if(y<80){ top.classList.remove('is-hidden'); }            // always visible near the top
+      else if(y>lastY+6){ top.classList.add('is-hidden'); }     // scrolling down -> hide
+      else if(y<lastY-6){ top.classList.remove('is-hidden'); }  // scrolling up -> show
+      lastY=y;
+    }
+    function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(apply); } }
+    apply(); addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll);
   })();
 
   // breath line: draw on load

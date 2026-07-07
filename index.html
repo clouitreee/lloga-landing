@@ -161,26 +161,25 @@ h1,h2,h3{margin:0;font-family:var(--disp);font-weight:500;line-height:1;letter-s
 .wave{position:absolute;top:0;left:0;width:100%;height:clamp(38px,5.5vw,78px);z-index:3;line-height:0;pointer-events:none;}
 .wave svg{width:100%;height:100%;display:block;}
 
-.levels{background:var(--paper);color:var(--ink);padding:clamp(3.2rem,8vw,6rem) var(--pad);position:relative;overflow:hidden;}
-.levels-lead{max-width:60ch;margin:1.1rem 0 0;font-size:1.1rem;line-height:1.6;color:var(--ink-soft);}
-.levels-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2.6rem;max-width:1180px;margin:clamp(2.6rem,5vw,4rem) auto 0;position:relative;}
-.levels-row::before{content:"";position:absolute;left:0;right:0;top:1.55rem;height:1px;background:linear-gradient(90deg,rgba(198,145,47,.55),rgba(198,145,47,.15) 92%,rgba(198,145,47,0));z-index:0;}
-@media (max-width:820px){.levels-row{grid-template-columns:1fr;gap:2.2rem;}.levels-row::before{left:1.55rem;right:auto;top:0;bottom:0;width:1px;height:auto;background:linear-gradient(rgba(198,145,47,.55),rgba(198,145,47,.12));}}
-.level-item{position:relative;z-index:1;transition:transform .4s cubic-bezier(.22,1,.36,1);}
-.level-item:hover{transform:translateY(-4px);}
-@media (max-width:820px){.level-item{padding-left:4.7rem;}}
-.level-mark{width:3.1rem;height:3.1rem;border-radius:50%;border:1px solid rgba(154,107,28,.55);display:grid;place-items:center;color:#9A6B1C;font-family:var(--disp);font-style:italic;font-size:1.32rem;background:var(--paper);position:relative;z-index:1;}
-@media (max-width:820px){.level-mark{position:absolute;left:0;top:0;}}
-.level-item h3{font-family:var(--disp);font-weight:600;font-size:1.28rem;color:var(--ink);margin:1.1rem 0 0;}
-.level-item:hover h3{color:#7E5A16;}
-.level-item p{color:var(--ink-soft);font-size:1.02rem;line-height:1.55;margin-top:.5rem;max-width:32ch;}
 .faq{background:var(--mist);color:var(--ink);padding:clamp(3.4rem,8vw,6.4rem) var(--pad);position:relative;overflow:hidden;}
 .faq .m-eyebrow{color:#7E5A16;} .faq .m-eyebrow::before{background:#9A6B1C;}
-.faq-list{max-width:880px;margin:clamp(2.2rem,5vw,3rem) auto 0;display:grid;gap:0;}
-.faq-item{padding:1.5rem 0;border-top:1px solid rgba(43,33,26,.14);}
-.faq-item:last-child{border-bottom:1px solid rgba(43,33,26,.14);}
-.faq-item h3{font-family:var(--disp);font-weight:600;font-size:1.14rem;color:var(--ink);margin:0;}
-.faq-item p{color:var(--ink-soft);font-size:1.02rem;line-height:1.55;margin-top:.5rem;max-width:64ch;}
+.faq-list{max-width:820px;margin:clamp(2.2rem,5vw,3rem) auto 0;display:grid;gap:0;}
+.faq-item{border-top:1px solid rgba(43,33,26,.16);}
+.faq-item:last-child{border-bottom:1px solid rgba(43,33,26,.16);}
+.faq-q{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:1.6rem;width:100%;padding:1.35rem 0;cursor:pointer;}
+.faq-q-text{font-family:var(--disp);font-weight:600;font-size:1.12rem;color:var(--ink);transition:color .3s;}
+.faq-q:hover .faq-q-text{color:#7E5A16;}
+.faq-mark{flex:none;width:2rem;height:2rem;border-radius:50%;border:1px solid rgba(154,107,28,.5);position:relative;transition:border-color .3s,background-color .3s;}
+.faq-mark::before,.faq-mark::after{content:"";position:absolute;top:50%;left:50%;background:#9A6B1C;transition:transform .35s cubic-bezier(.22,1,.36,1);}
+.faq-mark::before{width:.72rem;height:1.5px;transform:translate(-50%,-50%);}
+.faq-mark::after{width:1.5px;height:.72rem;transform:translate(-50%,-50%);}
+.faq-item[data-open="true"] .faq-mark{background:rgba(198,145,47,.14);border-color:#9A6B1C;}
+.faq-item[data-open="true"] .faq-mark::after{transform:translate(-50%,-50%) rotate(90deg) scaleY(0);}
+.faq-a-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.22,1,.36,1);}
+.faq-item[data-open="true"] .faq-a-wrap{grid-template-rows:1fr;}
+.faq-a-inner{overflow:hidden;}
+.faq-a-inner p{color:var(--ink-soft);font-size:1.02rem;line-height:1.6;max-width:60ch;margin:0 0 1.5rem;}
+@media (prefers-reduced-motion:reduce){.faq-a-wrap,.faq-mark::before,.faq-mark::after,.faq-q-text{transition:none;}}
 .wave--sage path{fill:var(--sage);}
 .wave--paper path{fill:var(--paper);}
 .wave--deep path{fill:var(--deep);}
@@ -369,33 +368,6 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
   </div>
 </section>
 
-<section class="levels" id="fuer-wen">
-  <div class="wrap">
-    <div class="sec-head" data-r2>
-      <p class="m-eyebrow">Warum Lloga</p>
-      <h2 class="sec-h2">Ein kleinerer Rahmen für mehr Aufmerksamkeit.</h2>
-      <p class="levels-lead">Lloga ist kein großer Studiobetrieb, sondern ein bewusster Rahmen für Menschen, die Yoga ohne Druck üben möchten, egal ob sie zum ersten Mal auf der Matte stehen oder schon lange praktizieren.</p>
-    </div>
-    <div class="levels-row">
-      <div class="level-item" data-r2>
-        <span class="level-mark">1</span>
-        <h3>Neu im Yoga</h3>
-        <p>Du möchtest ruhig starten und bekommst von Anfang an klare, verständliche Anleitung.</p>
-      </div>
-      <div class="level-item" data-r2>
-        <span class="level-mark">2</span>
-        <h3>Wieder einsteigen</h3>
-        <p>Du hast früher schon Yoga gemacht und findest ohne Druck zurück in deine Praxis.</p>
-      </div>
-      <div class="level-item" data-r2>
-        <span class="level-mark">3</span>
-        <h3>Geübt üben</h3>
-        <p>Du übst schon länger und suchst mehr Tiefe, Ruhe und Präzision in deiner Praxis.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="erste" id="erste-stunde">
   <div class="erste-divider" aria-hidden="true"><svg viewBox="0 0 1440 74" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,40 C1210,6 980,74 720,44 C470,18 235,70 0,38 Z"/></svg></div>
   <div class="erste-glow" aria-hidden="true"></div>
@@ -514,29 +486,71 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
       <h2 class="sec-h2">Kurz beantwortet.</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item" data-r2>
-        <h3>Ist Lloga nur für Anfänger:innen?</h3>
-        <p>Nein. Die Stunden eignen sich für Anfänger:innen, Wiedereinsteiger:innen und Geübte. Ich passe die Anleitung an die Gruppe an.</p>
+      <div class="faq-item" data-r2 data-open="true">
+        <button class="faq-q" type="button" aria-expanded="true">
+          <span class="faq-q-text">Ist Lloga nur für Anfänger:innen?</span>
+          <span class="faq-mark" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a-wrap">
+          <div class="faq-a-inner">
+            <p>Nein. Die Stunden eignen sich für Anfänger:innen, Wiedereinsteiger:innen und Geübte. Ich passe die Anleitung an die Gruppe an.</p>
+          </div>
+        </div>
       </div>
-      <div class="faq-item" data-r2>
-        <h3>Muss ich beweglich sein?</h3>
-        <p>Nein. Beweglichkeit ist keine Voraussetzung, sie entwickelt sich mit der Zeit.</p>
+      <div class="faq-item" data-r2 data-open="false">
+        <button class="faq-q" type="button" aria-expanded="false">
+          <span class="faq-q-text">Muss ich beweglich sein?</span>
+          <span class="faq-mark" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a-wrap">
+          <div class="faq-a-inner">
+            <p>Nein. Beweglichkeit ist keine Voraussetzung, sie entwickelt sich mit der Zeit.</p>
+          </div>
+        </div>
       </div>
-      <div class="faq-item" data-r2>
-        <h3>Wie groß sind die Gruppen?</h3>
-        <p><!-- PLACEHOLDER: Gruppengröße mit Marisa bestätigen -->Die Gruppen bleiben bewusst klein, damit ich dich persönlich begleiten kann.</p>
+      <div class="faq-item" data-r2 data-open="false">
+        <button class="faq-q" type="button" aria-expanded="false">
+          <span class="faq-q-text">Wie groß sind die Gruppen?</span>
+          <span class="faq-mark" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a-wrap">
+          <div class="faq-a-inner">
+            <p><!-- PLACEHOLDER: Gruppengröße mit Marisa bestätigen -->Die Gruppen bleiben bewusst klein, damit ich dich persönlich begleiten kann.</p>
+          </div>
+        </div>
       </div>
-      <div class="faq-item" data-r2>
-        <h3>Was soll ich mitbringen?</h3>
-        <p>Bequeme Kleidung reicht. Den Rest zeige ich dir in Ruhe vor Ort.</p>
+      <div class="faq-item" data-r2 data-open="false">
+        <button class="faq-q" type="button" aria-expanded="false">
+          <span class="faq-q-text">Was soll ich mitbringen?</span>
+          <span class="faq-mark" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a-wrap">
+          <div class="faq-a-inner">
+            <p>Bequeme Kleidung reicht. Den Rest zeige ich dir in Ruhe vor Ort.</p>
+          </div>
+        </div>
       </div>
-      <div class="faq-item" data-r2>
-        <h3>Wo in Köln findet der Unterricht statt?</h3>
-        <p>Der Unterricht findet in Köln-Ehrenfeld statt. Die genaue Adresse bekommst du nach deiner Anfrage.</p>
+      <div class="faq-item" data-r2 data-open="false">
+        <button class="faq-q" type="button" aria-expanded="false">
+          <span class="faq-q-text">Wo in Köln findet der Unterricht statt?</span>
+          <span class="faq-mark" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a-wrap">
+          <div class="faq-a-inner">
+            <p>Der Unterricht findet in Köln-Ehrenfeld statt. Die genaue Adresse bekommst du nach deiner Anfrage.</p>
+          </div>
+        </div>
       </div>
-      <div class="faq-item" data-r2>
-        <h3>Kann ich vorher eine Frage stellen?</h3>
-        <p>Ja, jederzeit per E-Mail oder über das Formular.</p>
+      <div class="faq-item" data-r2 data-open="false">
+        <button class="faq-q" type="button" aria-expanded="false">
+          <span class="faq-q-text">Kann ich vorher eine Frage stellen?</span>
+          <span class="faq-mark" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a-wrap">
+          <div class="faq-a-inner">
+            <p>Ja, jederzeit per E-Mail oder über das Formular.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -594,7 +608,7 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
       <p class="foot-lead">Achtsames Yoga in Köln. Ruhig, klar, persönlich.</p>
     </div>
     <div class="foot-links">
-      <a href="#fuer-wen">Für wen</a><a href="#preise">Preise</a><a href="#kontakt">Kontakt</a>
+      <a href="#preise">Preise</a><a href="#kontakt">Kontakt</a>
       <a href="mailto:hallo@lloga.de">hallo@lloga.de</a>
       <a href="https://www.instagram.com/lloga.yoga.koeln/" target="_blank" rel="noopener">Instagram</a>
     </div>
@@ -719,6 +733,21 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
   gsap.fromTo('.formats-thread',{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:'.formats',start:'top 84%',end:'bottom 62%',scrub:true}});
   gsap.to('.preise-mandala',{yPercent:-10,ease:'none',scrollTrigger:{trigger:'.preise',start:'top bottom',end:'bottom top',scrub:true}});
   gsap.to('.tl-line',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.steps',start:'top 80%',end:'top 42%',scrub:true}});
+
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var btn = item.querySelector('.faq-q');
+    btn.addEventListener('click', function(){
+      var willOpen = item.getAttribute('data-open') !== 'true';
+      document.querySelectorAll('.faq-item').forEach(function(o){
+        o.setAttribute('data-open','false');
+        o.querySelector('.faq-q').setAttribute('aria-expanded','false');
+      });
+      if (willOpen){
+        item.setAttribute('data-open','true');
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
   // safety net for above-fold r2
   setTimeout(function(){document.querySelectorAll('[data-r2]').forEach(function(e){var r=e.getBoundingClientRect();if(r.top<innerHeight*.95&&getComputedStyle(e).opacity==='0')gsap.set(e,{opacity:1,y:0});});},1500);
 })();

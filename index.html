@@ -697,13 +697,15 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
   }
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ignoreMobileResize:true});
-  // iOS Safari throttles scroll events during touch/momentum scrolling, which freezes
-  // scrub animations. normalizeScroll drives scroll itself so scrubs update continuously.
-  // Scoped to iOS only: Android already delivers continuous scroll events during
-  // fling, so normalizeScroll there would just replace native scroll feel for no gain.
-  var isIOS = /iP(hone|od|ad)/.test(navigator.platform) ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  if(isIOS){ ScrollTrigger.normalizeScroll(true); }
+  // normalizeScroll(true) was tried (globally, then scoped to iOS only) to keep
+  // scrub animations continuous during momentum scroll. Real-device testing on
+  // iPhone (Brave/WebKit) showed it introduces a "catching"/stutter feel during
+  // flick momentum, which matters more than perfectly continuous scrub updates.
+  // Disabled entirely: native scroll wins, decorative scrubs may lag slightly
+  // and catch up after a very fast flick instead of updating with full continuity.
+  // var isIOS = /iP(hone|od|ad)/.test(navigator.platform) ||
+  //   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // if(isIOS){ ScrollTrigger.normalizeScroll(true); }
 
   // hero entrance
   gsap.set('[data-r]',{opacity:0,y:26});

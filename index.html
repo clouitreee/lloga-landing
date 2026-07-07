@@ -699,7 +699,11 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
   ScrollTrigger.config({ignoreMobileResize:true});
   // iOS Safari throttles scroll events during touch/momentum scrolling, which freezes
   // scrub animations. normalizeScroll drives scroll itself so scrubs update continuously.
-  if(matchMedia('(pointer:coarse)').matches){ ScrollTrigger.normalizeScroll(true); }
+  // Scoped to iOS only: Android already delivers continuous scroll events during
+  // fling, so normalizeScroll there would just replace native scroll feel for no gain.
+  var isIOS = /iP(hone|od|ad)/.test(navigator.platform) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if(isIOS){ ScrollTrigger.normalizeScroll(true); }
 
   // hero entrance
   gsap.set('[data-r]',{opacity:0,y:26});
@@ -732,7 +736,14 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
   gsap.to('.probe',{yPercent:-3,ease:'none',scrollTrigger:{trigger:'.preise',start:'top bottom',end:'bottom top',scrub:true}});
   gsap.fromTo('.formats-thread',{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:'.formats',start:'top 84%',end:'bottom 62%',scrub:true}});
   gsap.to('.preise-mandala',{yPercent:-10,ease:'none',scrollTrigger:{trigger:'.preise',start:'top bottom',end:'bottom top',scrub:true}});
-  gsap.to('.tl-line',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.steps',start:'top 80%',end:'top 42%',scrub:true}});
+  // .tl-line is CSS-hidden below 820px (display:none); only bind its scrub where
+  // it's actually visible. matchMedia auto-reverts/recreates it if the viewport
+  // crosses the breakpoint (e.g. rotating a tablet, resizing a desktop window).
+  ScrollTrigger.matchMedia({
+    '(min-width: 820px)': function () {
+      gsap.to('.tl-line',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.steps',start:'top 80%',end:'top 42%',scrub:true}});
+    }
+  });
 
   document.querySelectorAll('.faq-item').forEach(function(item){
     var btn = item.querySelector('.faq-q');

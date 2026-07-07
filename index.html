@@ -726,7 +726,12 @@ form.lead .btn-fill{margin-top:.3rem;width:100%;justify-content:center;}
   ScrollTrigger.batch('[data-r2]',{start:'top 84%',onEnter:function(b){gsap.to(b,{opacity:1,y:0,duration:.9,ease:'power3.out',stagger:.1,overwrite:true});}});
 
   // Marisa photo: intentional clip-wipe reveal (not a plain fade)
-  gsap.from('.m-photo img',{clipPath:'inset(0 0 100% 0)',duration:1.15,ease:'power3.out',scrollTrigger:{trigger:'.m-photo',start:'top 82%',once:true}});
+  // Test: disabled on touch devices to isolate a reported jump right after
+  // leaving the hero on iPhone. Desktop keeps the clip-path wipe reveal as-is;
+  // mobile just shows the photo at its normal state with no reveal animation.
+  if(!matchMedia('(pointer:coarse)').matches){
+    gsap.from('.m-photo img',{clipPath:'inset(0 0 100% 0)',duration:1.15,ease:'power3.out',scrollTrigger:{trigger:'.m-photo',start:'top 82%',once:true}});
+  }
 
   // erste Stunde: living background parallax + timeline line drawing on scroll
   gsap.to('[data-parallax="erste"]',{yPercent:-14,xPercent:3,ease:'none',scrollTrigger:{trigger:'.erste',start:'top bottom',end:'bottom top',scrub:true}});
